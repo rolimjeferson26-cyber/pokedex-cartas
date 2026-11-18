@@ -1,0 +1,411 @@
+{
+ "atualizado": "2026-11-18",
+ "cartas": [
+  {
+   "pokemon": 25,
+   "nome": "Pikachu",
+   "colecao": "M6a",
+   "numero": "035/103",
+   "idioma": "JP"
+  },
+  {
+   "pokemon": 39,
+   "nome": "Erika's Jigglypuff",
+   "colecao": "30C",
+   "numero": "69/132",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 25,
+   "nome": "Pikachu",
+   "colecao": "M6a",
+   "numero": "036/103",
+   "idioma": "JP"
+  },
+  {
+   "pokemon": 1,
+   "nome": "Bulbasaur",
+   "colecao": "Promo M-P",
+   "numero": "101/M-P",
+   "idioma": "JP"
+  },
+  {
+   "pokemon": 4,
+   "nome": "Charmander",
+   "colecao": "Promo M-P",
+   "numero": "102/M-P",
+   "idioma": "JP"
+  },
+  {
+   "pokemon": 7,
+   "nome": "Squirtle",
+   "colecao": "Promo M-P",
+   "numero": "103/M-P",
+   "idioma": "JP"
+  },
+  {
+   "pokemon": 25,
+   "nome": "Pikachu",
+   "colecao": "30C",
+   "numero": "030/128",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 52,
+   "nome": "Meowth",
+   "colecao": "M6a",
+   "numero": "092/103",
+   "idioma": "JP"
+  },
+  {
+   "pokemon": 25,
+   "nome": "Pikachu",
+   "colecao": "30C",
+   "numero": "037/128",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 144,
+   "nome": "Articuno",
+   "colecao": "M6a",
+   "numero": "012/103",
+   "idioma": "JP"
+  },
+  {
+   "pokemon": 889,
+   "nome": "Zamazenta",
+   "colecao": "M6a",
+   "numero": "086/103",
+   "idioma": "JP"
+  },
+  {
+   "pokemon": 909,
+   "nome": "Fuecoco ex",
+   "colecao": "M6a",
+   "numero": "009/103",
+   "idioma": "JP"
+  },
+  {
+   "pokemon": 570,
+   "nome": "Hisuian Zorua",
+   "colecao": "30C",
+   "numero": "122/128",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 151,
+   "nome": "Mew",
+   "colecao": "30C",
+   "numero": "065/128",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 133,
+   "nome": "Eevee",
+   "colecao": "30C",
+   "numero": "118/128",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 373,
+   "nome": "Salamence ex",
+   "colecao": "30C",
+   "numero": "109/128",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 571,
+   "nome": "Hisuian Zoroark",
+   "colecao": "30C",
+   "numero": "123/128",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 145,
+   "nome": "Zapdos",
+   "colecao": "M6a",
+   "numero": "108/103",
+   "idioma": "JP"
+  },
+  {
+   "pokemon": 837,
+   "nome": "Rolycoly",
+   "colecao": "ASC",
+   "numero": "118/217",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 448,
+   "nome": "Lucario",
+   "colecao": "M6a",
+   "numero": "069/103",
+   "idioma": "JP"
+  },
+  {
+   "pokemon": 660,
+   "nome": "Diggersby",
+   "colecao": "OBF",
+   "numero": "113/197",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 449,
+   "nome": "Hippopotas",
+   "colecao": "PRE",
+   "numero": "052/131",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 27,
+   "nome": "Sandshrew",
+   "colecao": "MEG",
+   "numero": "068/132",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 933,
+   "nome": "Naclstack",
+   "colecao": "MEG",
+   "numero": "083/132",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 147,
+   "nome": "Dratini",
+   "colecao": "ASC",
+   "numero": "150/217",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 783,
+   "nome": "Hakamo-o",
+   "colecao": "30C",
+   "numero": "111/128",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 610,
+   "nome": "Axew",
+   "colecao": "SFA",
+   "numero": "044/064",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 64,
+   "nome": "Kadabra",
+   "colecao": "MEG",
+   "numero": "055/132",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 102,
+   "nome": "Team Rocket's Exeggcute",
+   "colecao": "ASC",
+   "numero": "077/217",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 97,
+   "nome": "Hypno",
+   "colecao": "SFA",
+   "numero": "017/064",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 609,
+   "nome": "Chandelure",
+   "colecao": "M6a",
+   "numero": "062/103",
+   "idioma": "JP"
+  },
+  {
+   "pokemon": 764,
+   "nome": "Comfey",
+   "colecao": "30C",
+   "numero": "077/128",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 386,
+   "nome": "Deoxys",
+   "colecao": "CRI",
+   "numero": "034/086",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 946,
+   "nome": "Bramblin",
+   "colecao": "PFL",
+   "numero": "046/094",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 759,
+   "nome": "Stufful",
+   "colecao": "SFA",
+   "numero": "052/064",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 999,
+   "nome": "Gimmighoul",
+   "colecao": "MEG",
+   "numero": "067/132",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 93,
+   "nome": "Haunter",
+   "colecao": "ASC",
+   "numero": "124/217",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 442,
+   "nome": "Spiritomb",
+   "colecao": "MEG",
+   "numero": "087/132",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 827,
+   "nome": "Nickit",
+   "colecao": "MEG",
+   "numero": "089/132",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 570,
+   "nome": "Zorua",
+   "colecao": "SFA",
+   "numero": "031/064",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 435,
+   "nome": "Skuntank",
+   "colecao": "CRI",
+   "numero": "054/086",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 801,
+   "nome": "Magearna",
+   "colecao": "JTG",
+   "numero": "107/159",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 400,
+   "nome": "Bibarel",
+   "colecao": "PGO",
+   "numero": "060/078",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 598,
+   "nome": "Ferrothorn",
+   "colecao": "M6a",
+   "numero": "083/103",
+   "idioma": "JP"
+  },
+  {
+   "pokemon": 206,
+   "nome": "Dunsparce",
+   "colecao": "TEF",
+   "numero": "128/162",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 52,
+   "nome": "Team Rocket's Meowth",
+   "colecao": "ASC",
+   "numero": "161/217",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 780,
+   "nome": "Drampa",
+   "colecao": "ASC",
+   "numero": "176/217",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 959,
+   "nome": "Tinkaton",
+   "colecao": "MEG",
+   "numero": "098/132",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 759,
+   "nome": "Stufful",
+   "colecao": "SFA",
+   "numero": "052/064",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 958,
+   "nome": "Tinkatuff",
+   "colecao": "MEG",
+   "numero": "097/132",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 318,
+   "nome": "Carvanha",
+   "colecao": "EVS",
+   "numero": "035/203",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 393,
+   "nome": "Piplup",
+   "colecao": "PFL",
+   "numero": "027/094",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 361,
+   "nome": "Snorunt",
+   "colecao": "ASC",
+   "numero": "046/217",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 43,
+   "nome": "Oddish",
+   "colecao": "PFL",
+   "numero": "001/094",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 44,
+   "nome": "Gloom",
+   "colecao": "PFL",
+   "numero": "002/094",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 919,
+   "nome": "Nymble",
+   "colecao": "PFL",
+   "numero": "009/094",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 152,
+   "nome": "Chikorita",
+   "colecao": "ASC",
+   "numero": "008/217",
+   "idioma": "EN"
+  },
+  {
+   "pokemon": 723,
+   "nome": "Dartrix",
+   "colecao": "SFA",
+   "numero": "004/064",
+   "idioma": "EN"
+  }
+ ]
+}

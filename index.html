@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; img-src 'self' https://raw.githubusercontent.com data:; script-src 'self'; style-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#0d0f17">
+  <title>Pokédex de Cartas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="titulo">
+      <span class="bola" aria-hidden="true"></span>
+      <h1>Pokédex de Cartas</h1>
+    </div>
+    <div class="progresso">
+      <div class="numeros"><strong id="tenho">0</strong> / <span id="total">0</span> Pokémon · <span id="pct">0%</span> · <span id="ncartas">0</span> cartas</div>
+      <div class="barra"><div id="barra-fill"></div></div>
+    </div>
+    <div class="controlos">
+      <input id="pesquisa" type="search" placeholder="Procurar nome ou número…" autocomplete="off" maxlength="40">
+      <div class="linha">
+        <div class="seg" role="group" aria-label="Filtro">
+          <button data-filtro="todos" class="ativo">Todos</button>
+          <button data-filtro="tenho">Tenho</button>
+          <button data-filtro="faltam">Faltam</button>
+        </div>
+        <select id="geracao" aria-label="Geração">
+          <option value="0">Todas as gerações</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main id="grelha" class="grelha" aria-live="polite"></main>
+  <p id="vazio" class="vazio" hidden>Nenhum Pokémon encontrado.</p>
+
+  <footer class="rodape">
+    <button id="exportar">Exportar coleção</button>
+    <label class="botao">Importar<input id="importar" type="file" accept="application/json" hidden></label>
+    <button id="repor">Repor original</button>
+    <p>As alterações ficam guardadas neste dispositivo. Sprites: <a href="https://github.com/PokeAPI/sprites" rel="noopener noreferrer">PokeAPI</a>. Projeto de fã, sem ligação à Nintendo/The Pokémon Company.</p>
+  </footer>
+
+  <dialog id="detalhe">
+    <button id="d-fechar" class="fechar" aria-label="Fechar">✕</button>
+    <img id="d-img" alt="" width="160" height="160">
+    <p id="d-num" class="d-num"></p>
+    <h2 id="d-nome"></h2>
+    <p id="d-ja" class="d-ja"></p>
+    <div class="contador">
+      <button id="d-menos" aria-label="Menos uma carta">−</button>
+      <span><strong id="d-qtd">0</strong> carta(s)</span>
+      <button id="d-mais" aria-label="Mais uma carta">+</button>
+    </div>
+    <ul id="d-cartas" class="d-cartas"></ul>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
