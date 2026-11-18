@@ -16,6 +16,10 @@
     <div class="titulo">
       <span class="bola" aria-hidden="true"></span>
       <h1>Pokédex de Cartas</h1>
+      <select id="objetivo" class="objetivo" aria-label="Objetivo da coleção">
+        <option value="todos">Todos os Pokémon</option>
+        <option value="gen1">Objetivo: Gen 1</option>
+      </select>
     </div>
     <div class="progresso">
       <div class="numeros"><strong id="tenho">0</strong> / <span id="total">0</span> Pokémon · <span id="pct">0%</span> · <span id="ncartas">0</span> cartas</div>
@@ -30,6 +34,7 @@
           <button data-filtro="faltam">Faltam</button>
           <button data-filtro="lixeira" title="Pokémon que não quero">🗑 <span id="nlixo">0</span></button>
         </div>
+        <button id="ver-lista" class="btn-lista" title="Lista do que falta">📋</button>
         <select id="geracao" aria-label="Geração">
           <option value="0">Todas as gerações</option>
         </select>
@@ -61,6 +66,13 @@
     </div>
     <button id="d-naoquero" class="naoquero"></button>
     <ul id="d-cartas" class="d-cartas"></ul>
+  </dialog>
+
+  <dialog id="lista">
+    <button id="l-fechar" class="fechar" aria-label="Fechar">✕</button>
+    <h2 id="l-titulo">Faltam</h2>
+    <button id="l-copiar" class="naoquero voltar">Copiar lista</button>
+    <ol id="l-itens" class="l-itens"></ol>
   </dialog>
 
   <script src="app.js"></script>

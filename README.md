@@ -11,6 +11,8 @@ A minha Pokédex pessoal para acompanhar a coleção de cartas Pokémon: os 1025
 - Pesquisa por nome (EN/JP) ou número, filtro "Tenho / Faltam" e por geração.
 - Toca num Pokémon para ver as cartas que tenho dele e usar **+ / −** quando conseguir (ou trocar) cartas.
 - **Não quero**: manda um Pokémon para a lixeira 🗑 — sai da contagem e da grelha, mas pode voltar a qualquer momento.
+- **Objetivo**: escolher entre "Todos os Pokémon" (1025) e "Gen 1" (151); a barra de progresso acompanha o objetivo.
+- **📋 Lista do que falta**: lista dos Pokémon em falta no objetivo atual, com botão para copiar.
 - Exportar / importar a coleção (quantidades + lixeira) em JSON.
 
 ## Como funciona

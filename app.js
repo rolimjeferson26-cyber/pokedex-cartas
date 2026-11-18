@@ -9,6 +9,8 @@ const BASE_IMG = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprit
 const ARTE = id => `${BASE_IMG}other/official-artwork/${id}.png`;   // arte oficial (alta resolução)
 const SPRITE = id => `${BASE_IMG}${id}.png`;                          // reserva, se a arte falhar
 const CHAVE_LIXO = 'pokedex-cartas:naoquero:v1';
+const CHAVE_OBJ = 'pokedex-cartas:objetivo:v1';
+const OBJETIVOS = { todos: { nome: 'Todos', max: 1025 }, gen1: { nome: 'Gen 1', max: 151 } };
 const GERACOES = [
   [1, 151], [152, 251], [252, 386], [387, 493], [494, 649],
   [650, 721], [722, 809], [810, 905], [906, 1025]
@@ -16,7 +18,7 @@ const GERACOES = [
 const MAX_POR_POKEMON = 999;
 
 const $ = sel => document.querySelector(sel);
-const estado = { lixo: new Set(), pokemon: [], cartasPorId: new Map(), base: {}, local: {}, filtro: 'todos', geracao: 0, texto: '', tiles: new Map(), aberto: null };
+const estado = { objetivo: 'todos', lixo: new Set(), pokemon: [], cartasPorId: new Map(), base: {}, local: {}, filtro: 'todos', geracao: 0, texto: '', tiles: new Map(), aberto: null };
 
 function lerLocal() {
   try {
@@ -68,6 +70,8 @@ async function iniciar() {
   }
   estado.local = lerLocal();
   estado.lixo = lerLixo();
+  try { const o = localStorage.getItem(CHAVE_OBJ); if (o in OBJETIVOS) estado.objetivo = o; } catch { /* ignora */ }
+  $('#objetivo').value = estado.objetivo;
 
   const sel = $('#geracao');
   GERACOES.forEach(([a, b], i) => {
@@ -109,12 +113,15 @@ function construirGrelha() {
 function atualizar() {
   let tenho = 0, cartas = 0, visiveis = 0, quero = 0;
   const naLixeira = estado.filtro === 'lixeira';
+  const maxObj = OBJETIVOS[estado.objetivo].max;
+  $('#geracao').hidden = maxObj <= 151;
   const t = normalizar(estado.texto.trim());
   for (const p of estado.pokemon) {
     const q = qtd(p.id);
     const lixo = estado.lixo.has(p.id);
+    const noObjetivo = p.id <= maxObj;
     cartas += q;
-    if (!lixo) { quero++; if (q > 0) tenho++; }
+    if (!lixo && noObjetivo) { quero++; if (q > 0) tenho++; }
     const tile = estado.tiles.get(p.id);
     tile.b.classList.toggle('lixo', lixo);
     tile.b.classList.toggle('tem', q > 0);
@@ -122,9 +129,10 @@ function atualizar() {
     tile.badge.hidden = q < 2;
     tile.badge.textContent = '×' + q;
     const mostra =
+      noObjetivo &&
       (naLixeira ? lixo : !lixo) &&
       (naLixeira || estado.filtro === 'todos' || (estado.filtro === 'tenho') === (q > 0)) &&
-      (!estado.geracao || geracaoDe(p.id) === estado.geracao) &&
+      (!estado.geracao || maxObj <= 151 || geracaoDe(p.id) === estado.geracao) &&
       (!t || tile.chave.includes(t) || String(p.id) === t.replace(/^#?0*/, ''));
     tile.b.hidden = !mostra;
     if (mostra) visiveis++;
@@ -188,6 +196,31 @@ function mudar(delta) {
   atualizar();
 }
 
+function faltam() {
+  const max = OBJETIVOS[estado.objetivo].max;
+  return estado.pokemon.filter(p => p.id <= max && !estado.lixo.has(p.id) && qtd(p.id) === 0);
+}
+function abrirLista() {
+  const f = faltam();
+  $('#l-titulo').textContent = `Faltam ${f.length} (${OBJETIVOS[estado.objetivo].nome})`;
+  const ol = $('#l-itens');
+  ol.replaceChildren();
+  for (const p of f) {
+    const li = document.createElement('li');
+    const n = document.createElement('span');
+    n.textContent = numero(p.id);
+    li.append(n, p.en);
+    ol.append(li);
+  }
+  $('#l-copiar').textContent = 'Copiar lista';
+  $('#lista').showModal();
+}
+async function copiarLista() {
+  const texto = faltam().map(p => `${numero(p.id)} ${p.en}`).join('\n');
+  try { await navigator.clipboard.writeText(texto); $('#l-copiar').textContent = 'Copiado ✓'; }
+  catch { $('#l-copiar').textContent = 'Não deu para copiar'; }
+}
+
 function exportar() {
   const quantidades = {};
   for (const p of estado.pokemon) { const q = qtd(p.id); if (q > 0) quantidades[p.id] = q; }
@@ -229,6 +262,15 @@ function ligarEventos() {
     atualizar();
   }));
   $('#d-naoquero').addEventListener('click', alternarLixo);
+  $('#objetivo').addEventListener('change', e => {
+    estado.objetivo = e.target.value in OBJETIVOS ? e.target.value : 'todos';
+    try { localStorage.setItem(CHAVE_OBJ, estado.objetivo); } catch { /* ignora */ }
+    atualizar();
+  });
+  $('#ver-lista').addEventListener('click', abrirLista);
+  $('#l-copiar').addEventListener('click', copiarLista);
+  $('#l-fechar').addEventListener('click', () => $('#lista').close());
+  $('#lista').addEventListener('click', e => { if (e.target === e.currentTarget) e.currentTarget.close(); });
   $('#d-mais').addEventListener('click', () => mudar(1));
   $('#d-menos').addEventListener('click', () => mudar(-1));
   $('#d-fechar').addEventListener('click', () => $('#detalhe').close());
