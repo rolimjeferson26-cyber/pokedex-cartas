@@ -78,10 +78,11 @@ h1 { font-size: 1.2rem; margin: 0; letter-spacing: .3px; }
   cursor: pointer;
   color: var(--texto);
 }
-.poke img { width: 80px; height: 80px; image-rendering: pixelated; display: block; margin: 0 auto; }
+.poke img { width: 84px; height: 84px; object-fit: contain; display: block; margin: 0 auto; }
 .poke .n { font-size: .7rem; color: var(--suave); }
 .poke .nome { font-size: .78rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.poke.falta img { filter: grayscale(1) brightness(.35); }
+.poke.falta img { filter: grayscale(1) brightness(.35); opacity: .8; }
+.poke.lixo img { filter: grayscale(1) brightness(.5); }
 .poke.falta .nome { color: var(--suave); }
 .poke.tem { border-color: rgba(46, 230, 166, .55); box-shadow: 0 0 10px rgba(46, 230, 166, .15); }
 .qtd {
@@ -107,7 +108,7 @@ dialog {
 }
 dialog::backdrop { background: rgba(0, 0, 0, .7); }
 .fechar { position: absolute; right: 10px; top: 8px; background: none; border: 0; font-size: 1.2rem; cursor: pointer; color: var(--suave); }
-#d-img { image-rendering: pixelated; }
+#d-img { width: 200px; height: 200px; object-fit: contain; filter: drop-shadow(0 0 14px rgba(46, 230, 166, .25)); }
 .d-num { color: var(--suave); margin: 0; }
 dialog h2 { margin: 2px 0; }
 .d-ja { color: var(--suave); margin: 0 0 12px; }
@@ -120,3 +121,10 @@ dialog h2 { margin: 2px 0; }
 .d-cartas { list-style: none; padding: 0; margin: 14px 0 0; text-align: left; font-size: .85rem; }
 .d-cartas li { border-top: 1px solid var(--linha); padding: 7px 2px; color: var(--suave); }
 .d-cartas li strong { color: var(--texto); }
+.seg button { padding: 8px 9px; }
+.naoquero {
+  margin-top: 14px; width: 100%;
+  background: none; border: 1px solid var(--linha); border-radius: 10px;
+  padding: 9px; cursor: pointer; color: var(--suave);
+}
+.naoquero.voltar { border-color: var(--verde); color: var(--verde); }

@@ -5,7 +5,10 @@
 // Alterações feitas no telemóvel ficam no localStorage deste dispositivo.
 
 const CHAVE = 'pokedex-cartas:v1';
-const SPRITE = id => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+const BASE_IMG = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
+const ARTE = id => `${BASE_IMG}other/official-artwork/${id}.png`;   // arte oficial (alta resolução)
+const SPRITE = id => `${BASE_IMG}${id}.png`;                          // reserva, se a arte falhar
+const CHAVE_LIXO = 'pokedex-cartas:naoquero:v1';
 const GERACOES = [
   [1, 151], [152, 251], [252, 386], [387, 493], [494, 649],
   [650, 721], [722, 809], [810, 905], [906, 1025]
@@ -13,13 +16,25 @@ const GERACOES = [
 const MAX_POR_POKEMON = 999;
 
 const $ = sel => document.querySelector(sel);
-const estado = { pokemon: [], cartasPorId: new Map(), base: {}, local: {}, filtro: 'todos', geracao: 0, texto: '', tiles: new Map(), aberto: null };
+const estado = { lixo: new Set(), pokemon: [], cartasPorId: new Map(), base: {}, local: {}, filtro: 'todos', geracao: 0, texto: '', tiles: new Map(), aberto: null };
 
 function lerLocal() {
   try {
     const bruto = JSON.parse(localStorage.getItem(CHAVE) || '{}');
     return limparQuantidades(bruto);
   } catch { return {}; }
+}
+function lerLixo() {
+  try {
+    const arr = JSON.parse(localStorage.getItem(CHAVE_LIXO) || '[]');
+    return new Set(limparIds(arr));
+  } catch { return new Set(); }
+}
+function gravarLixo() {
+  try { localStorage.setItem(CHAVE_LIXO, JSON.stringify([...estado.lixo])); } catch { /* ignora */ }
+}
+function limparIds(arr) {
+  return Array.isArray(arr) ? arr.map(Number).filter(n => Number.isInteger(n) && n >= 1 && n <= 1025) : [];
 }
 function gravarLocal() {
   try { localStorage.setItem(CHAVE, JSON.stringify(estado.local)); } catch { /* sem armazenamento: segue só em memória */ }
@@ -52,6 +67,7 @@ async function iniciar() {
     estado.cartasPorId.get(c.pokemon).push(c);
   }
   estado.local = lerLocal();
+  estado.lixo = lerLixo();
 
   const sel = $('#geracao');
   GERACOES.forEach(([a, b], i) => {
@@ -78,7 +94,8 @@ function construirGrelha() {
     img.decoding = 'async';
     img.alt = p.en;
     img.width = 80; img.height = 80;
-    img.src = SPRITE(p.id);
+    img.src = ARTE(p.id);
+    img.addEventListener('error', () => { if (!img.dataset.reserva) { img.dataset.reserva = '1'; img.src = SPRITE(p.id); } });
     const n = document.createElement('div'); n.className = 'n'; n.textContent = numero(p.id);
     const nome = document.createElement('div'); nome.className = 'nome'; nome.textContent = p.en;
     const badge = document.createElement('span'); badge.className = 'qtd'; badge.hidden = true;
@@ -90,24 +107,31 @@ function construirGrelha() {
 }
 
 function atualizar() {
-  let tenho = 0, cartas = 0, visiveis = 0;
+  let tenho = 0, cartas = 0, visiveis = 0, quero = 0;
+  const naLixeira = estado.filtro === 'lixeira';
   const t = normalizar(estado.texto.trim());
   for (const p of estado.pokemon) {
     const q = qtd(p.id);
-    if (q > 0) { tenho++; cartas += q; }
+    const lixo = estado.lixo.has(p.id);
+    cartas += q;
+    if (!lixo) { quero++; if (q > 0) tenho++; }
     const tile = estado.tiles.get(p.id);
+    tile.b.classList.toggle('lixo', lixo);
     tile.b.classList.toggle('tem', q > 0);
     tile.b.classList.toggle('falta', q === 0);
     tile.badge.hidden = q < 2;
     tile.badge.textContent = '×' + q;
     const mostra =
-      (estado.filtro === 'todos' || (estado.filtro === 'tenho') === (q > 0)) &&
+      (naLixeira ? lixo : !lixo) &&
+      (naLixeira || estado.filtro === 'todos' || (estado.filtro === 'tenho') === (q > 0)) &&
       (!estado.geracao || geracaoDe(p.id) === estado.geracao) &&
       (!t || tile.chave.includes(t) || String(p.id) === t.replace(/^#?0*/, ''));
     tile.b.hidden = !mostra;
     if (mostra) visiveis++;
   }
-  const total = estado.pokemon.length;
+  const total = quero;
+  $('#nlixo').textContent = estado.lixo.size;
+  $('#aviso-lixo').hidden = !naLixeira || visiveis === 0;
   $('#tenho').textContent = tenho;
   $('#total').textContent = total;
   $('#ncartas').textContent = cartas;
@@ -120,7 +144,9 @@ function atualizar() {
 function abrir(id) {
   const p = estado.pokemon[id - 1];
   estado.aberto = id;
-  $('#d-img').src = SPRITE(id);
+  const dimg = $('#d-img');
+  dimg.onerror = () => { dimg.onerror = null; dimg.src = SPRITE(id); };
+  dimg.src = ARTE(id);
   $('#d-img').alt = p.en;
   $('#d-num').textContent = numero(id) + ' · Geração ' + geracaoDe(id);
   $('#d-nome').textContent = p.en;
@@ -137,7 +163,20 @@ function abrir(id) {
   atualizarDetalhe();
   $('#detalhe').showModal();
 }
-function atualizarDetalhe() { $('#d-qtd').textContent = qtd(estado.aberto); }
+function atualizarDetalhe() {
+  $('#d-qtd').textContent = qtd(estado.aberto);
+  const b = $('#d-naoquero');
+  const lixo = estado.lixo.has(estado.aberto);
+  b.textContent = lixo ? '↩ Voltar a querer este Pokémon' : '🗑 Não quero este Pokémon';
+  b.classList.toggle('voltar', lixo);
+}
+function alternarLixo() {
+  const id = estado.aberto;
+  if (estado.lixo.has(id)) estado.lixo.delete(id); else estado.lixo.add(id);
+  gravarLixo();
+  atualizarDetalhe();
+  atualizar();
+}
 
 function mudar(delta) {
   const id = estado.aberto;
@@ -152,7 +191,7 @@ function mudar(delta) {
 function exportar() {
   const quantidades = {};
   for (const p of estado.pokemon) { const q = qtd(p.id); if (q > 0) quantidades[p.id] = q; }
-  const blob = new Blob([JSON.stringify({ app: 'pokedex-cartas', versao: 1, data: new Date().toISOString(), quantidades }, null, 1)], { type: 'application/json' });
+  const blob = new Blob([JSON.stringify({ app: 'pokedex-cartas', versao: 2, data: new Date().toISOString(), quantidades, naoQuero: [...estado.lixo].sort((a, b) => a - b) }, null, 1)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'minha-colecao.json';
@@ -172,6 +211,7 @@ async function importar(ficheiro) {
     }
     estado.local = novo;
     gravarLocal();
+    if (Array.isArray(dados.naoQuero)) { estado.lixo = new Set(limparIds(dados.naoQuero)); gravarLixo(); }
     atualizar();
   } catch { alert('Não consegui ler esse ficheiro.'); }
 }
@@ -188,6 +228,7 @@ function ligarEventos() {
     estado.filtro = b.dataset.filtro;
     atualizar();
   }));
+  $('#d-naoquero').addEventListener('click', alternarLixo);
   $('#d-mais').addEventListener('click', () => mudar(1));
   $('#d-menos').addEventListener('click', () => mudar(-1));
   $('#d-fechar').addEventListener('click', () => $('#detalhe').close());
@@ -195,7 +236,7 @@ function ligarEventos() {
   $('#exportar').addEventListener('click', exportar);
   $('#importar').addEventListener('change', e => { importar(e.target.files[0]); e.target.value = ''; });
   $('#repor').addEventListener('click', () => {
-    if (confirm('Apagar as alterações feitas neste dispositivo e voltar à coleção original?')) {
+    if (confirm('Apagar as quantidades alteradas neste dispositivo e voltar à coleção original? (A lixeira mantém-se.)')) {
       estado.local = {}; gravarLocal(); atualizar();
     }
   });

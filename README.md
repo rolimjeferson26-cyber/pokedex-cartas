@@ -5,12 +5,13 @@ A minha Pokédex pessoal para acompanhar a coleção de cartas Pokémon: os 1025
 **Ver online:** https://rolimjeferson26-cyber.github.io/pokedex-cartas/
 
 ## O que faz
-- Mostra todos os Pokémon (Geração 1 a 9) com sprite, número e nome (inglês e japonês).
+- Mostra todos os Pokémon (Geração 1 a 9) com a arte oficial, número e nome (inglês e japonês).
 - Destaca os que já tenho, com o número de cartas de cada um.
 - Progresso da coleção (Pokémon e total de cartas).
 - Pesquisa por nome (EN/JP) ou número, filtro "Tenho / Faltam" e por geração.
 - Toca num Pokémon para ver as cartas que tenho dele e usar **+ / −** quando conseguir (ou trocar) cartas.
-- Exportar / importar a coleção em JSON.
+- **Não quero**: manda um Pokémon para a lixeira 🗑 — sai da contagem e da grelha, mas pode voltar a qualquer momento.
+- Exportar / importar a coleção (quantidades + lixeira) em JSON.
 
 ## Como funciona
 Site estático (HTML, CSS e JavaScript puro), sem servidor nem dependências.
